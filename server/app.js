@@ -14,7 +14,7 @@ app.get('/', async (req, res) => {
 // Demanar categories (POST)
 app.post('/categories', async (req, res) => {
     // Obtener las categorias del json
-    var categories
+    let categories
     try {
         let data = fs.readFileSync('assets/items.json')
         data = JSON.parse(data)
@@ -33,8 +33,21 @@ app.post('/categories', async (req, res) => {
 
 // Demanar items d'una categoria (POST)
 app.post('/cat_items', async (req, res) => {
-    res.send(`Hello Items /`)
-})
+    // Obtener las categorias del json
+    let items = []
+    try {
+        let data = fs.readFileSync('assets/items.json')
+        data = JSON.parse(data)
+        data.forEach(element => {
+            if(element.category == req.body.category){
+                items.push(element)
+            }
+        });
+        res.send(items)
+
+    } catch (error) {
+        console.log(error);
+    }})
 
 // Demanar informació d'un ítem (POST)
 app.post('/item_info', async (req, res) => {
