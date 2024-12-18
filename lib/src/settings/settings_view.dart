@@ -1,4 +1,6 @@
+import 'package:dam_datalist/src/app_data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'settings_controller.dart';
 
@@ -15,6 +17,7 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appData = Provider.of<AppData>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -27,9 +30,13 @@ class SettingsView extends StatelessWidget {
         // SettingsController is updated, which rebuilds the MaterialApp.
         child: DropdownButton<ThemeMode>(
           // Read the selected themeMode from the controller
-          value: controller.themeMode,
+          value: appData.themeMode,
           // Call the updateThemeMode method any time the user selects a theme.
-          onChanged: controller.updateThemeMode,
+          onChanged:  (ThemeMode? newMode) {
+          if (newMode != null) {
+            appData.updateThemeMode(newMode);
+          }
+        },
           items: const [
             DropdownMenuItem(
               value: ThemeMode.system,

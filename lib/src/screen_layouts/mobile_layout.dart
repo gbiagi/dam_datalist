@@ -1,18 +1,23 @@
+import 'package:dam_datalist/src/screen_layouts/shared_appbar.dart';
+import 'package:dam_datalist/src/settings/settings_controller.dart';
 import 'package:flutter/material.dart';
 
 class MobileLayout extends StatefulWidget {
-  const MobileLayout({super.key});
+  final SettingsController settingsController;
+
+  const MobileLayout({super.key,required this.settingsController});
 
   @override
-  _MobileLayoutState createState() => _MobileLayoutState();
+  MobileLayoutState createState() => MobileLayoutState();
 }
 
-class _MobileLayoutState extends State<MobileLayout> {
+class MobileLayoutState extends State<MobileLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Mobile Layout'),
+      appBar: SharedAppBar(
+        title: 'Desktop Layout',
+        settingsController: widget.settingsController,
       ),
       body: const Center(
         child: Text('This is the mobile layout'),

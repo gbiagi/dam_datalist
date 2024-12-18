@@ -3,10 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
-import 'sample_feature/sample_item_details_view.dart';
-import 'sample_feature/sample_item_list_view.dart';
+import 'screen_layouts/desktop_layout.dart';
+import 'screen_layouts/mobile_layout.dart';
 import 'settings/settings_controller.dart';
-import 'settings/settings_view.dart';
 import 'app_data.dart';
 
 /// The Widget that configures your application.
@@ -18,44 +17,39 @@ class MyApp extends StatelessWidget {
 
   final SettingsController settingsController;
 
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => AppData(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        restorationScopeId: 'app',
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en', ''), // English, no country code
-        ],
-        onGenerateTitle: (BuildContext context) =>
-            AppLocalizations.of(context)!.appTitle,
-        theme: ThemeData(),
-        darkTheme: ThemeData.dark(),
-        themeMode: settingsController.themeMode,
-        onGenerateRoute: (RouteSettings routeSettings) {
-          return MaterialPageRoute<void>(
-            settings: routeSettings,
-            builder: (BuildContext context) {
-              switch (routeSettings.name) {
-                case SettingsView.routeName:
-                  return SettingsView(controller: settingsController);
-                case SampleItemDetailsView.routeName:
-                  return const SampleItemDetailsView();
-                case SampleItemListView.routeName:
-                default:
-                  return const SampleItemListView();
+    @override
+Widget build(BuildContext context) {
+  return ChangeNotifierProvider(
+    create: (context) => AppData(),
+    child: Consumer<AppData>(
+      builder: (context, appData, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          restorationScopeId: 'app',
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en', ''), // English, no country code
+          ],
+          onGenerateTitle: (BuildContext context) =>
+              AppLocalizations.of(context)!.appTitle,
+          theme: ThemeData(),
+          darkTheme: ThemeData.dark(),
+          themeMode: appData.themeMode,
+          home: LayoutBuilder(
+            builder: (context, constraints) {
+              if (constraints.maxWidth >= 600) {
+                return DesktopLayout(settingsController: settingsController);
               }
+              return MobileLayout(settingsController: settingsController);
             },
-          );
-        },
-      ),
-    );
-  }
-}
+          ),
+        );
+      },
+    ),
+  );
+}}
