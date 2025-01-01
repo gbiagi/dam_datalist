@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class MobileLayout extends StatefulWidget {
   final SettingsController settingsController;
 
-  const MobileLayout({super.key,required this.settingsController});
+  const MobileLayout({super.key, required this.settingsController});
 
   @override
   MobileLayoutState createState() => MobileLayoutState();
@@ -16,7 +16,7 @@ class MobileLayoutState extends State<MobileLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SharedAppBar(
-        title: 'Desktop Layout',
+        title: 'Mobile Layout',
         settingsController: widget.settingsController,
       ),
       body: const Center(

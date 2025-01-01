@@ -1,0 +1,18 @@
+Fes una aplicació 'Flutter' que mostri informació sobre la teva
+ temàtica preferida. Tipus la pràctica de "Nintendo DB"
+
+Les temàtiques acceptades són:
+Esports, Musica, Art, Cultura, ...
+
+La informació ha d'estar emmagatzemada en un servidor NodeJS, 
+i l'aplicació flutter l'ha d'obtenir a través de crides POST. 
+Les imatges s'han d'obtenir a través de crides GET.
+
+
+Aquestes són les condicions:
+
+Com a mínim hi ha d'haver tres vistes (categories, items i detall)
+S'han de mostrar imatges de cada item a la vista detall.
+S'ha de poder navegar a partir de "Categories > Items i Detall"
+Hi ha d'haver una vista cerca que ha de mostrar resultats de cerca dins 
+la mateixa vista, i enllaçar amb la vista detall dels items trobats.
