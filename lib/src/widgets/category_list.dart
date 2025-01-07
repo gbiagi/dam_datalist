@@ -13,19 +13,31 @@ class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppData appData = Provider.of<AppData>(context);
-    return ListView.builder(
-      restorationId: 'categoryListView',
-      itemCount: categories.length,
-      itemBuilder: (BuildContext context, int index) {
-        final category = categories[index];
-
-        return ListTile(
-          title: Text(category),
-          onTap: () {
-            appData.updateSelectedCategory(category);
-          },
-        );
-      },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Text(
+            'CATEGORIES',
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            restorationId: 'categoryListView',
+            itemCount: categories.length,
+            itemBuilder: (BuildContext context, int index) {
+              final category = categories[index];
+              return ListTile(
+                title: Text(category),
+                onTap: () {
+                  appData.updateSelectedCategory(category);
+                },
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

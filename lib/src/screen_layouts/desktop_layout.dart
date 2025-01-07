@@ -3,6 +3,7 @@ import 'package:dam_datalist/src/widgets/category_list.dart';
 import 'package:dam_datalist/src/widgets/item_list.dart';
 import 'package:dam_datalist/src/screen_layouts/shared_appbar.dart';
 import 'package:dam_datalist/src/settings/settings_controller.dart';
+import 'package:dam_datalist/src/widgets/item_preview_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,21 +21,38 @@ class DesktopLayout extends StatefulWidget {
 
 class DesktopLayoutState extends State<DesktopLayout> {
   @override
+  void initState() {
+    super.initState();
+    fetchCategories();
+  }
+
+  void fetchCategories() async {
+    try {
+      AppData appData = Provider.of<AppData>(context, listen: false);
+      await appData.getCategories();
+    } catch (e) {
+      print('Error loading categories: $e');
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // Wait 1s
+    Future.delayed(const Duration(seconds: 1), () {});
     AppData appData = Provider.of<AppData>(context);
+    appData.settingsController = widget.settingsController;
     return Scaffold(
-      appBar: SharedAppBar(
-        title: 'Desktop Layout',
-        settingsController: widget.settingsController,
+      appBar: const SharedAppBar(
+        title: 'Kingdom Come Deliverance Weapons',
       ),
       body: Row(
         children: [
           Container(
             width: 250,
             color: const Color.fromARGB(0, 236, 239, 241),
-            child: const Center(
+            child: Center(
               child: CategoryList(
-                categories: ['Category 1', 'Category 2', 'Category 3'],
+                categories: appData.categories,
               ),
             ),
           ),
@@ -43,7 +61,18 @@ class DesktopLayoutState extends State<DesktopLayout> {
               width: 250,
               color: const Color.fromARGB(0, 236, 239, 241),
               child: Center(
-                child: ItemList(items: appData.getItemList()),
+                child: ItemList(
+                  items: appData.itemList,
+                  isMobile: false,
+                ),
+              ),
+            ),
+          if (appData.selectedItem != 0)
+            Container(
+              width: 250,
+              color: const Color.fromARGB(0, 236, 239, 241),
+              child: Center(
+                child: ItemPreview(item: appData.getSelectedItem()),
               ),
             ),
         ],

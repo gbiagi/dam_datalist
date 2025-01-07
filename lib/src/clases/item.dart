@@ -1,4 +1,6 @@
 // Class for each item of the list
+import 'dart:ffi';
+
 class Item {
   int id;
   String category;
