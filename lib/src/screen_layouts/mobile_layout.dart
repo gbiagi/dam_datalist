@@ -23,6 +23,7 @@ class MobileLayoutState extends State<MobileLayout> {
         title: 'Kingdom Come Deliverance Weapons',
       ),
       body: (CategoryList(
+        isMobile: true,
         categories: appData.categories,
       )),
     );

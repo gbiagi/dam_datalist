@@ -1,6 +1,7 @@
 import 'package:dam_datalist/src/app_data.dart';
 import 'package:dam_datalist/src/clases/item.dart';
 import 'package:dam_datalist/src/screen_layouts/shared_appbar.dart';
+import 'package:dam_datalist/src/widgets/item_detailed_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +35,15 @@ class ItemList extends StatelessWidget {
                 title: Text(item.name),
                 onTap: () {
                   appData.updateSelectedItem(item.id);
+                  if (isMobile) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ItemDetailed(
+                          item: item,
+                        ),
+                      ),
+                    );
+                  }
                 },
               );
             },

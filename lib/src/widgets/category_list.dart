@@ -1,4 +1,6 @@
 import 'package:dam_datalist/src/app_data.dart';
+import 'package:dam_datalist/src/screen_layouts/shared_appbar.dart';
+import 'package:dam_datalist/src/widgets/item_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,14 +8,16 @@ class CategoryList extends StatelessWidget {
   const CategoryList({
     super.key,
     required this.categories,
+    required this.isMobile,
   });
 
   final List<String> categories;
+  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
     AppData appData = Provider.of<AppData>(context);
-    return Column(
+    Widget content = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
@@ -32,6 +36,16 @@ class CategoryList extends StatelessWidget {
                 title: Text(category),
                 onTap: () {
                   appData.updateSelectedCategory(category);
+                  if (isMobile) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ItemList(
+                          isMobile: true,
+                          items: appData.itemList,
+                        ),
+                      ),
+                    );
+                  }
                 },
               );
             },
@@ -39,5 +53,16 @@ class CategoryList extends StatelessWidget {
         ),
       ],
     );
+    if (isMobile) {
+      return content;
+      // Scaffold(
+      //   appBar: const SharedAppBar(
+      //     title: 'Items',
+      //   ),
+      //   body: content,
+      // );
+    } else {
+      return content;
+    }
   }
 }

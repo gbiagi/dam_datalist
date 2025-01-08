@@ -30,6 +30,7 @@ class DesktopLayoutState extends State<DesktopLayout> {
     try {
       AppData appData = Provider.of<AppData>(context, listen: false);
       await appData.getCategories();
+      print("Categories loaded");
     } catch (e) {
       print('Error loading categories: $e');
     }
@@ -53,6 +54,7 @@ class DesktopLayoutState extends State<DesktopLayout> {
             child: Center(
               child: CategoryList(
                 categories: appData.categories,
+                isMobile: false,
               ),
             ),
           ),
