@@ -23,8 +23,13 @@ class ItemDetailed extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image(
-              image: appData.getItemImage(item.imagePath).image,
+            SizedBox(
+              width: 100, // Set the desired width
+              height: 100, // Set the desired height
+              child: Image(
+                image: appData.getItemImage(item.imagePath).image,
+                fit: BoxFit.fill, // Adjust the image to cover the box
+              ),
             ),
             Text('Weight: ${item.weight.toString()}'),
             const SizedBox(height: 5),

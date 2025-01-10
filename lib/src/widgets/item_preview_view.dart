@@ -18,8 +18,13 @@ class ItemPreview extends StatelessWidget {
     return Column(
       children: [
         Text(item.name), const SizedBox(height: 5),
-        Image(
-          image: appData.getItemImage(item.imagePath).image,
+        SizedBox(
+          width: 100, // Set the desired width
+          height: 100, // Set the desired height
+          child: Image(
+            image: appData.getItemImage(item.imagePath).image,
+            fit: BoxFit.fill, // Adjust the image to cover the box
+          ),
         ),
         const SizedBox(height: 5),
 

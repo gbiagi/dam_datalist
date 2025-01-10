@@ -153,4 +153,20 @@ class AppData with ChangeNotifier {
       },
     );
   }
+
+  // Buscar item
+  Item searchItem(String name) {
+    return itemList.firstWhere((item) => item.name == name);
+
+    // var response = await http.get(Uri.parse('$url/categories'));
+    // if (response.statusCode == 200) {
+    //   var data = jsonDecode(response.body);
+    //   for (var category in data) {
+    //     categories.add(category);
+    //   }
+    //   notifyListeners();
+    // } else {
+    //   throw Exception('Failed to load categories');
+    // }
+  }
 }
